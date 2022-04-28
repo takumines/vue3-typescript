@@ -1,20 +1,15 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import TweetPostForm from './TweetPostForm.vue';
+import TweetList from "./TweetList.vue";
+import { Tweet } from "../types/tweet.";
 
-interface Tweet {
-  id: number,
-  description: string
-}
-
-const inputDesc = ref<string>('')
 const tweets = ref<Tweet[]>([])
-
-const postTweet = () => {
+const postTweet = (description: string) => {
   const tweet: Tweet = {
     id: tweets.value.length + 1,
-    description: inputDesc.value
+    description
   }
-  inputDesc.value = ''
   tweets.value.push(tweet)
 }
 
@@ -26,17 +21,11 @@ const deleteTweet = (id: number) => {
 <template>
   <div class="container">
     <h1>Tweeter</h1>
-    <div class="form-container">
-      <input v-model="inputDesc">
-      <button @click="postTweet" class="save-button">post</button>
-    </div>
+    <TweetPostForm @post-tweet="postTweet"/>
     <div class="tweet-container">
       <p v-if="tweets.length <= 0">No tweet have been added</p>
       <ul>
-        <li v-for="tweet in tweets" :key="tweet.id" class="tweet-list">
-          <span>{{ tweet.description }}</span>
-          <button class="delete-button" @click="deleteTweet(tweet.id)">delete</button>
-        </li>
+        <TweetList :tweets="tweets" @delete-tweet="deleteTweet"/>
       </ul>
     </div>
   </div>
@@ -47,57 +36,6 @@ const deleteTweet = (id: number) => {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.form-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: aliceblue;
-  padding: 24px 0;
-  width: 60%;
-  margin-bottom: 12px;
-  border-radius: 4px;
-}
-
-.tweet-list {
-  list-style: none;
-  margin-bottom: 12px;
-  border-radius: 4px;
-  font-size: 12px;
-  display: flex;
-  justify-content: space-between;
-  background-color: rgb(204, 219, 233);
-  padding: 8px 20px;
-  width: 300px;
-}
-
-.save-button {
-  color: #fff;
-  font-weight: bold;
-  background-color: #68c9c9;
-  border-radius: 2px;
-  border: none;
-  width: 60px;
-  height: 22px;
-}
-
-.save-button:hover {
-  background-color: #37bdbd;
-}
-
-.delete-button {
-  color: #fff;
-  font-weight: bold;
-  background-color: #c99a68;
-  border-radius: 2px;
-  border: none;
-  width: 60px;
-  height: 22px;
-}
-
-.delete-button:hover {
-  background-color: #ac783f;
 }
 
 input {
