@@ -1,4 +1,5 @@
-export interface Tweet {
+export interface Person {
   id: number,
-  description: string
+  name: string,
+  age: number
 }
