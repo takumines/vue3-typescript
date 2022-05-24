@@ -1,9 +1,17 @@
 <script setup lang="ts">
-import Persons from "./components/Persons.vue";
+import { provide } from "vue";
+import TodoList from "./components/TodoList.vue";
+import {todoKey, todos} from "./useTodo";
+
+// provideを使ってtodosをどこからでも受け取れるよう定義
+// inject('todos')で受け取れる
+// provide('todos', todos)
+provide(todoKey, todos)
+
 </script>
 
 <template>
-  <Persons />
+  <TodoList />
 </template>
 
 <style>
