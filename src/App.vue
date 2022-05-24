@@ -1,17 +1,22 @@
-<script setup lang="ts">
-import Persons from "./components/Persons.vue";
-</script>
-
 <template>
-  <Persons />
+  <Form />
 </template>
 
+<script setup lang="ts">
+import Form from './components/Form.vue';
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: #292929;
 }
 </style>
